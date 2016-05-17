@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  margin: 0;
+}
+main {
+  width: 100%;
+  padding: 0 16px;
+}
+article {
+  width: 100%;
+  border-bottom: #ededed solid 1px;
+  display: flex;
+  padding: 16px 0;
+}
+.left, .right {
+  margin: auto;
+}
+.left {
+  width: 80%;
+}
+.right {
+  width: 20%;
+  text-align: right;
+}
+.subtitle {
+  display: flex;
+}
+.author, .divider, .date {
+  margin-right: 8px;
+}
