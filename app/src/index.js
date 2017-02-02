@@ -1,28 +1,38 @@
-'use strict'
+const { app, BrowserWindow } = require('electron');
 
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
-const request = require('request')
+const request = require('request');
+const { parseString } = require('xml2js');
 
-let mainWindow
 
-let username = 'auermi'
+let username = 'auermi';
 
 app.on('ready', () => {
   // New Browser Window
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
       width: 420,
       height: 640,
       resizable: false
   })
 
-  // request('http://www.medium.com/@auermi?format=json', function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-  //     const data = JSON.parse(body.replace('])}while(1);</x>', ''))
-  //     console.log(data)
-  //   }
-  // })
+  const renderActivities = activities => {
+    activities.forEach(activity => {
+      console.log(activity.link[0]);
+      console.log(activity.title[0]);
+    })
+  }
+  request(`https://www.medium.com/feed/@${username}`, (err, res) => {
+    parseString(res.body, function (err, result) {
+      const activities = result.rss.channel[0].item;
+      renderActivities(activities);
+    });
+    // if (!err && res.statusCode == 200) {
+    //   //JSON.stringify(response.body, null, 2))
+    //   renderPosts(JSON.parse(res.body.replace('])}while(1);</x>', '')).payload)
+    // } else {
+    //   console.log('nope')
+    //   return []
+    // }
+});
 
 
   mainWindow.loadURL('file://' + __dirname + '/../index.html')
@@ -30,4 +40,4 @@ app.on('ready', () => {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 
-})
+});

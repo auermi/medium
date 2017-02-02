@@ -17,13 +17,14 @@
   },
   "homepage": "https://github.com/auermi/medium#readme",
   "devDependencies": {
-    "electron-prebuilt": "^1.1.0",
+    "electron": "^1.4.15",
     "grunt": "^1.0.1",
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0"
   },
   "dependencies": {
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "xml2js": "^0.4.17"
   }
 }
