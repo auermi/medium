@@ -3,8 +3,24 @@ const { app, BrowserWindow } = require('electron');
 const request = require('request');
 const { parseString } = require('xml2js');
 
-
 let username = 'auermi';
+
+const activityTemplate = activity => {
+  const markup = `
+    <a href="${activity.link}">
+      <div class="left">
+        <div class="title">${activity.title}</div>
+        <div class="subtitle">
+          <div class="author">n/a</div>
+          <div class="divider">|</div>
+          <div class="date">${activity.date}</div>
+        </div>
+      </div>
+      <div class="right">›</div>
+    </a>
+  `
+  return markup
+}
 
 app.on('ready', () => {
   // New Browser Window
@@ -16,8 +32,12 @@ app.on('ready', () => {
 
   const renderActivities = activities => {
     activities.forEach(activity => {
-      console.log(activity.link[0]);
-      console.log(activity.title[0]);
+      const x = {
+        link: activity.link[0],
+        title: activity.title[0],
+        date: activity.pubDate[0]
+      }
+      console.log(activityTemplate(x));
     })
   }
   request(`https://www.medium.com/feed/@${username}`, (err, res) => {
